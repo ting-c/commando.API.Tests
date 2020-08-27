@@ -23,10 +23,23 @@ namespace CommandoAPI.Tests
         }
 
         [Fact]
-        public async Task Get_ReturnsAnOkObject_WithAListOfCommandItems()
+        public async Task GetAsync_ReturnsAnOkObject_WithAListOfCommandItems()
         {
-            var result = await _controller.Get();
+            var result = await _controller.GetAsync();
             Assert.IsType<ActionResult<List<CommandItem>>>(result);
+        }
+
+        [Fact]
+        public async Task PostAsync_ReturnsACreatedAtActionObject_withACommandItem()
+        {
+            var commandItem = new CommandItem
+            {
+                Command = "command1",
+                Description = "description1"
+            };
+            var result = await _controller.PostAsync(commandItem);
+            var actionResult = Assert.IsType<CreatedAtActionResult>(result);
+            Assert.Equal(commandItem, actionResult.Value);
         }
     }
 }
