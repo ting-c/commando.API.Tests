@@ -41,5 +41,18 @@ namespace CommandoAPI.Tests
             var actionResult = Assert.IsType<CreatedAtActionResult>(result);
             Assert.Equal(commandItem, actionResult.Value);
         }
+
+        [Fact]
+        public async Task PutAsync_WithAnInvalidItem_ReturnsNotFoundResult()
+        {
+            var commandItem = new CommandItem
+            {
+                Command = "command2",
+                Description = "description2"
+            };
+            var result = await _controller.PutAsync(commandItem.Id, commandItem);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
     }
 }
