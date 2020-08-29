@@ -54,5 +54,13 @@ namespace CommandoAPI.Tests
 
             Assert.IsType<NotFoundResult>(result);
         }
+
+        [Fact]
+        public async Task DeleteAsync_WithAnInvalidItem_ReturnsNotFoundResult()
+        {
+            var result = await _controller.DeleteAsync(new Guid {});
+
+            Assert.IsType<NotFoundResult>(result);
+        }
     }
 }
